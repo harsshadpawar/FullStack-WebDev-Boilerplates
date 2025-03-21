@@ -18,8 +18,7 @@ step3:
 create .env and .gitignore files and
 
 PORT=3000
-MONGO_URL = "mongodb+srv://<DBusername>:<DBpassword>@cluster0.fdkbg.mongodb.net/cohort"
-BASE_URL=http://127.0.0.1:3000
+NEON_URL = 
 MAILTRAP_HOST=
 MAILTRAP_PORT=
 MAILTRAP_USERNAME=
