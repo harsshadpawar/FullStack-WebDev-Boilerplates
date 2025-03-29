@@ -1,0 +1,10 @@
+
+ 1743237639464 : ::1 : GET : /api/users
+ 1743237843143 : ::1 : GET : /api/users
+ 1743237980618 : ::1 : GET : /api/users
+ 1743238019122 : ::1 : GET : /api/users
+ 1743238173887 : ::1 : GET : /api/users
+ 1743240702010 : ::1 : GET : /api/users/2
+ 1743241095495 : ::1 : POST : /api/users
+ 1743241361368 : ::1 : POST : /api/users
+ 1743241379019 : ::1 : POST : /api/users

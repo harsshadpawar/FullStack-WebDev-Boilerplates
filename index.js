@@ -6,6 +6,23 @@ const PORT = 8000;
 
 // adding middleware plugin
 app.use(express.urlencoded({ extended: false }));
+//handles function in middleware
+app.use((req, res, next) => {
+  //console.log("Hello from middleware 1");
+  // req.myUserName = "Harsshad@gmail.com";
+  fs.appendFile(
+    "log.txt",
+    `\n ${Date.now()} : ${req.ip} : ${req.method} : ${req.path}`,
+    (err, data) => {
+      next();
+    }
+  );
+});
+
+app.use((req, res, next) => {
+  //console.log("Hello from middleware 2 : ", req.myUserName);
+  next();
+});
 
 //Routes
 
@@ -37,6 +54,9 @@ app.delete("/api/users/:id", (req, res) => {
 
 */
 app.get("/api/users", (req, res) => {
+  //console.log("I am in get route " + req.myUserName);
+  res.setHeader("X-myName", "Harsshad Pawar"); // always add x to custom headers
+  console.log(req.headers);
   return res.json(users);
 });
 
@@ -59,7 +79,9 @@ app
         console.log(err);
         return res.status(500).send("Error writing to File");
       } else {
-        return res.json({ staus: "Sucessful", id: users[userIndex].id });
+        return res
+          .status()
+          .json({ staus: "Sucessful", id: users[userIndex].id });
       }
     });
   })
@@ -87,12 +109,20 @@ app
 app.post("/api/users", (req, res) => {
   //todo: create new user
   const body = req.body;
+  if (
+    !body.first_name ||
+    !body.last_name ||
+    !body.email ||
+    !body.gender ||
+    !body.job_title
+  )
+    return res.status(400).send("Bad request");
   users.push({ ...body, id: users.length + 1 });
   fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err, data) => {
     if (err) {
       console.log(err);
     } else {
-      return res.json({ staus: "Sucessful", id: users.length });
+      return res.status(201).json({ staus: "Sucessful", id: users.length });
     }
   });
 });
